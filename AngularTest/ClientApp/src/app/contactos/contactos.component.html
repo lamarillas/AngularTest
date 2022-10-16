@@ -1,28 +1,66 @@
 <h1 id="tableLabel">Contactos</h1>
 
-<p>Listado de Contactos.</p>
 
-<p *ngIf="!contactos"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="contactos">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Direccion</th>
-      <th>Telefono</th>
-      <th>CURP</th>
-      <th>Fecha Registro</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let contacto of contactos">
-      <td>{{ contacto.id }}</td>
-      <td>{{ contacto.nombre }}</td>
-      <td>{{ contacto.direccion }}</td>
-      <td>{{ contacto.telefono }}</td>
-      <td>{{ contacto.curp }}</td>
-      <td>{{ contacto.fechaRegistro }}</td>
-    </tr>
-  </tbody>
-</table>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control" name="buscar" placeholder="Buscar contacto" />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <button class="btn btn-success" (click)="addrow()">Nuevo contacto</button>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <button class="btn btn-warning" (click)="addrow()">Importar contactos</button>
+        </div>
+      </div>
+    </div>
+
+   
+  </div>
+  <div class="panel-body">
+    <p *ngIf="!contactos"><em>Loading...</em></p>
+    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="contactos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Direccion</th>
+          <th>Telefono</th>
+          <th>CURP</th>
+          <th>Fecha Registro</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contacto of contactos">
+          <td>{{ contacto.id }}</td>
+          <td>{{ contacto.nombre }}</td>
+          <td>{{ contacto.direccion }}</td>
+          <td>{{ contacto.telefono }}</td>
+          <td>{{ contacto.curp }}</td>
+          <td>{{ contacto.fechaRegistro }}</td>
+          <td>
+            <a class="btn btn-primary">
+              <i></i> Editar
+            </a>
+          </td>
+          <td>
+            <a class="btn btn-danger">
+              <i></i> Eliminar
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
