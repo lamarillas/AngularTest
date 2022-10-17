@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Remover Contacto</h4>
+  <button type="button" class="btn-close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <p><strong>¿Estas seguro de borrar el contacto?</strong></p>
+  <p>
+    <strong><span class="text-primary">"{{ contacto.nombre }} - {{ contacto.telefono }}"</span></strong>
+  </p>
+  <p>
+    Toda la informacion relacionada con el contacto sera borrada permanentemente.
+  </p>
+  <p>
+    <span class="text-danger">Esta operacion no podra ser deshecha.</span>
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+  <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Ok')">Ok</button>
+</div>

@@ -50,14 +50,14 @@
           <td>{{ contacto.curp }}</td>
           <td>{{ contacto.fechaRegistro }}</td>
           <td>
-            <a class="btn btn-primary">
+            <button class="btn btn-primary">
               <i></i> Editar
-            </a>
+            </button>
           </td>
           <td>
-            <a class="btn btn-danger">
+            <button class="btn btn-danger" (click)="remove(contacto)">
               <i></i> Eliminar
-            </a>
+            </button>
           </td>
         </tr>
       </tbody>

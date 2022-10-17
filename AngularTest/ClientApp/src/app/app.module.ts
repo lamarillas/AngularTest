@@ -11,6 +11,10 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ContatosComponent } from './contactos/contactos.component';
 
+import { NgbModule, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ModalRemoveComponent } from './modal-remove/modal-remove.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,12 +22,14 @@ import { ContatosComponent } from './contactos/contactos.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ContatosComponent
+    ContatosComponent,
+    ModalRemoveComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -32,6 +38,9 @@ import { ContatosComponent } from './contactos/contactos.component';
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ModalRemoveComponent
+  ]
 })
 export class AppModule { }
