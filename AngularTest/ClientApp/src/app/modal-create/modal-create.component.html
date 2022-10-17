@@ -1,5 +1,12 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Contacto nuevo</h4>
+  <h4 class="modal-title" id="modal-basic-title" *ngIf="crudType == 0; else header">
+    Contacto nuevo
+  </h4>
+  <ng-template #header>
+    <h4 class="modal-title" id="modal-basic-title">
+      Editar Contacto
+    </h4>
+  </ng-template>
   <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 </div>
 <form [formGroup]="contactoForm" (ngSubmit)="onSubmit()" novalidate>
@@ -19,14 +26,14 @@
   </div>-->
 
     <div class="form-group">
-      <label for="direccion">Direccion</label>
+      <label for="direccion">Dirección</label>
       <input type="text" id="direccion" class="form-control" name="direccion" formControlName="direccion" maxlength="200" autocomplete="off">
     </div>
     <div class="form-group">
-      <label for="telefono">Telefono *</label>
+      <label for="telefono">Teléfono *</label>
       <input type="text" id="telefono" class="form-control" [ngClass]="{ 'is-invalid': !telefono?.valid && (telefono?.dirty || telefono?.touched) }" name="telefono" formControlName="telefono" maxlength="50" autocomplete="off">
       <div *ngIf="!telefono?.valid && (telefono?.dirty || telefono?.touched)" class="invalid-feedback">
-        Telefono es requerido.
+        Teléfono es requerido.
       </div>
     </div>
     <div class="form-group">

@@ -14,6 +14,7 @@ import { ContatosComponent } from './contactos/contactos.component';
 import { NgbModule, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ModalRemoveComponent } from './modal-remove/modal-remove.component';
 import { ModalCreateComponent } from './modal-create/modal-create.component';
+import { ContactoFilterPipe } from './pipe/contacto-filter.pipe';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ModalCreateComponent } from './modal-create/modal-create.component';
     FetchDataComponent,
     ContatosComponent,
     ModalRemoveComponent,
-    ModalCreateComponent
+    ModalCreateComponent,
+    ContactoFilterPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

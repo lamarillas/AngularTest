@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { validate } from 'json-schema';
 import { Contacto } from '../models/contacto.interface';
+import { ECrudType } from '../enums/crud-type.enum';
 
 @Component({
   selector: 'app-modal-create',
@@ -13,6 +14,7 @@ export class ModalCreateComponent implements OnInit {
 
   contactoForm: FormGroup;
   contacto: Contacto;
+  crudType: ECrudType;
 
   constructor(public modal: NgbActiveModal) { }
 
@@ -26,7 +28,9 @@ export class ModalCreateComponent implements OnInit {
       'curp': new FormControl(this.contacto.curp),
       'fechaRegistro': new FormControl(this.contacto.fechaRegistro)
     })
-
+    //this.crudType = ECrudType.SAVE;
+    //this.accion = 'Contacto Nuevo';
+    //if (this.contacto.id > 0) this.accion = 'Editar Contacto';
   }
 
   get nombre() {
