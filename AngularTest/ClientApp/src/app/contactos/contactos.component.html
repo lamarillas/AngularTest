@@ -14,7 +14,7 @@
       </div>
       <div class="col-md-2">
         <div class="form-group">
-          <button class="btn btn-success" (click)="addrow()">Nuevo contacto</button>
+          <button class="btn btn-success" (click)="addContacto()">Nuevo contacto</button>
         </div>
       </div>
       <div class="col-md-3">
@@ -48,9 +48,9 @@
           <td>{{ contacto.direccion }}</td>
           <td>{{ contacto.telefono }}</td>
           <td>{{ contacto.curp }}</td>
-          <td>{{ contacto.fechaRegistro }}</td>
+          <td>{{ contacto.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
           <td>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" (click)="edit(contacto)">
               <i></i> Editar
             </button>
           </td>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -13,6 +13,7 @@ import { ContatosComponent } from './contactos/contactos.component';
 
 import { NgbModule, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ModalRemoveComponent } from './modal-remove/modal-remove.component';
+import { ModalCreateComponent } from './modal-create/modal-create.component';
 
 
 @NgModule({
@@ -23,12 +24,14 @@ import { ModalRemoveComponent } from './modal-remove/modal-remove.component';
     CounterComponent,
     FetchDataComponent,
     ContatosComponent,
-    ModalRemoveComponent
+    ModalRemoveComponent,
+    ModalCreateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -40,6 +43,7 @@ import { ModalRemoveComponent } from './modal-remove/modal-remove.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
+    ModalCreateComponent,
     ModalRemoveComponent
   ]
 })

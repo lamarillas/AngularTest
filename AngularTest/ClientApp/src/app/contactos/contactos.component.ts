@@ -2,13 +2,17 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ModalRemoveComponent } from '../modal-remove/modal-remove.component';
+import { ModalCreateComponent } from '../modal-create/modal-create.component';
+import { Contacto } from '../models/contacto.interface';
 
 @Component({
   selector: 'app-contactos',
   templateUrl: './contactos.component.html'
 })
 export class ContatosComponent {
+
   public contactos: Contacto[];
+
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private modalService: NgbModal) {
     this.loadContactos();    
@@ -22,8 +26,42 @@ export class ContatosComponent {
 
   }
 
+  addContacto() {
 
-  remove(contacto) {
+    let contacto: Contacto = { id: 0, nombre: '', direccion: '', telefono: '', curp: '', fechaRegistro: new Date() };
+
+    const modalRef = this.modalService.open(ModalCreateComponent);
+    modalRef.componentInstance.contacto = contacto;
+    modalRef.result.then(((result: Contacto) => {
+
+      //result.fechaRegistro = new Date();
+
+      this.http.post(this.baseUrl + 'api/contactos', result).subscribe(result => {
+        console.log(result);
+        this.loadContactos();
+      }, error => console.log(error));
+      
+
+    }).bind(this))
+  }
+  
+  edit(contacto: Contacto) {
+    const modalRef = this.modalService.open(ModalCreateComponent);
+    modalRef.componentInstance.contacto = contacto;
+    modalRef.result.then(((result: Contacto) => {
+
+      //result.fechaRegistro = new Date();
+
+      this.http.put(this.baseUrl + 'api/contactos', result).subscribe(result => {
+        console.log(result);
+        this.loadContactos();
+      }, error => console.log(error));
+
+
+    }).bind(this))
+  }
+
+  remove(contacto: Contacto) {
     const modalRef = this.modalService.open(ModalRemoveComponent);
     modalRef.componentInstance.contacto = contacto;
     modalRef.result.then(((result) => {
@@ -38,13 +76,4 @@ export class ContatosComponent {
       }
     }).bind(this))
   }
-}
-
-interface Contacto {
-  id: number;
-  nombre: string;
-  direccion: string;
-  telefono: string;
-  curp: string;
-  fechaRegistro: Date
 }
