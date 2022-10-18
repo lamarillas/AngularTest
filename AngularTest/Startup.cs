@@ -1,12 +1,16 @@
 using AngularTest.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace AngularTest
 {
@@ -26,6 +30,14 @@ namespace AngularTest
 
             var cnStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDataContext>(opciones => opciones.UseSqlServer(cnStr));
+
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = int.MaxValue;
+                options.MemoryBufferThreshold = int.MaxValue;
+
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -50,6 +62,12 @@ namespace AngularTest
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
+
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
