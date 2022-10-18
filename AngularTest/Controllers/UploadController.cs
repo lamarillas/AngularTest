@@ -53,21 +53,25 @@ namespace AngularTest.Controllers
                 int lastRow = usedRange.LastRow;
                 int lastColumn = usedRange.LastColumn;
                 //Iterate the cells in the used range and print the cell values
-                for (int row = 1; row <= lastRow; row++)
+                for (int row = 2; row <= lastRow; row++)
                 {
-                    var nombre = worksheet[row, 1].Value.ToString();
-                    var direccion = worksheet[row, 2].Value.ToString();
-                    var telefono = worksheet[row, 3].Value.ToString();
-                    var curp = worksheet[row, 4].Value.ToString();
-                    var fechaRegistro = worksheet[row, 5].Value.ToString();
+                    var nombre = worksheet[row, 1].Value;
+                    var direccion = worksheet[row, 2].Value;
+                    var telefono = worksheet[row, 3].Value;
+                    var curp = worksheet[row, 4].Value;
+                    var fechaRegistro = worksheet[row, 5].Value;
                     // create the Country entity and fill it with xlsx data 
+                    int nombreLen = nombre.Length > 100 ? 100 : nombre.Length;
+                    int direccionLen = direccion.Length > 200 ? 200 : direccion.Length;
+                    int telefonoLen = telefono.Length > 50 ? 50 : telefono.Length;
+                    int curpLen = curp.Length > 18 ? 18 : curp.Length;
                     var contacto = new Contacto
                     {
-                        Nombre = nombre,
-                        Direccion = direccion,
-                        Telefono = telefono,
-                        Curp = curp,
-                        FechaRegistro = DateTime.Now
+                        Nombre = nombre.ToString().Substring(0, nombreLen),
+                        Direccion = direccion.ToString().Substring(0, direccionLen),
+                        Telefono = telefono.ToString().Substring(0, telefonoLen),
+                        Curp = curp.ToString().Substring(0, curpLen),
+                        FechaRegistro = fechaRegistro == "" ? DateTime.Now : Convert.ToDateTime(fechaRegistro)
                     };
 
                     // add the new country to the DB context 
