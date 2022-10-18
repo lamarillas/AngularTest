@@ -45,14 +45,12 @@ namespace AngularTest.Controllers
                 //
                 IWorksheet worksheet = workbook.Worksheets[0];
 
-                // initialize the record counters 
                 var numberOfContactosAdded = 0;
 
-                //Access the used range of the Excel file
                 IRange usedRange = worksheet.UsedRange;
                 int lastRow = usedRange.LastRow;
                 int lastColumn = usedRange.LastColumn;
-                //Iterate the cells in the used range and print the cell values
+
                 for (int row = 2; row <= lastRow; row++)
                 {
                     var nombre = worksheet[row, 1].Value;
@@ -60,7 +58,7 @@ namespace AngularTest.Controllers
                     var telefono = worksheet[row, 3].Value;
                     var curp = worksheet[row, 4].Value;
                     var fechaRegistro = worksheet[row, 5].Value;
-                    // create the Country entity and fill it with xlsx data 
+
                     int nombreLen = nombre.Length > 100 ? 100 : nombre.Length;
                     int direccionLen = direccion.Length > 200 ? 200 : direccion.Length;
                     int telefonoLen = telefono.Length > 50 ? 50 : telefono.Length;
@@ -74,37 +72,17 @@ namespace AngularTest.Controllers
                         FechaRegistro = fechaRegistro == "" ? DateTime.Now : Convert.ToDateTime(fechaRegistro)
                     };
 
-                    // add the new country to the DB context 
+
                     await _context.Contactos.AddAsync(contacto);
 
-                    // increment the counter 
+
                     numberOfContactosAdded++;
                 }
 
-                // save all the countries into the Database 
+
                 if (numberOfContactosAdded > 0) await _context.SaveChangesAsync();
 
                 return Ok();
-
-
-                //var folderName = Path.Combine("Resources", "images");
-                //var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-                //if (file.Length > 0)
-                //{
-                //    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                //    var fullPath = Path.Combine(pathToSave, fileName);
-                //    var dbPath = Path.Combine(folderName, fileName);
-                //    using (var stream = new FileStream(fullPath, FileMode.Create))
-                //    {
-                //        file.CopyTo(stream);
-                //    }
-                //    return Ok(new { dbPath });
-                //}
-                //else
-                //{
-                //    return BadRequest();
-                //}
             }
             catch (Exception ex)
             {
